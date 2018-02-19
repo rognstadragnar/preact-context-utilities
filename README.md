@@ -10,8 +10,8 @@ Setting up `Providers` and `connect` functions can be a bit foreign. More so tha
 
 ## Usage
 
-```shell
-npm i preact-context-utilities
+```Javascript
+npm i preact-context-utilities // soon™
 ```
 
 ### Initializing
