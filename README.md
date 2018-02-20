@@ -21,43 +21,49 @@ Creating a `provider` and a `connect` function is straight-forward.
 Both the `createProvider` and the `createConnect` functions expects an options `Object` with a `context` property that is an `array` of `strings`. Every item in the array will be available to use as `context`. The options object can also contain an optional `name` property. The `name` property is used for naming but has sane defaults.
 
 ```Javascript
+import { createContext } from 'preact-context-utilities'
+
+
+const context = ['something'];
+const { Provider, connect } = createContext({ context });
+
+export { Provider, connect }
+```
+
+Or alternatively
+
+```Javascript
 import { createProvider, createConnect } from 'preact-context-utilities'
 
-const trackingContext = ['tracker']
+const context = ['something']
 
-const TrackerProvider = createProvider({
-  name: 'TrackerProvider',
-  context: trackingContext
-})
+const Provider = createProvider({ context })
 
-const withTracker = createConnect({
-  name: 'withTracker',
-  context: trackingContext
-})
+const connect = createConnect({ context })
 
-export { TrackerProvider, withTracker }
+export { Provider, connect }
 ```
 
 ### Consuming
 
 ```Javascript
 import { h, render } from 'preact'
-import { TrackerProvider, withTracker } from './somewhere'
+import { Provider, connect } from './somewhere'
 
-const Button = ({ tracker }) => {
+const Button = ({ something }) => {
   return (
-    <button onClick={tracker}>
+    <button onClick={something}>
       Track me
     </button>
   )
 }
 
-const App = withTracker(Button)
+const App = connect(Button)
 
 render(
-  <TrackerProvider tracker={console.log}>
+  <Provider something={console.log}>
       <App />
-  </TrackerProvider>,
+  </Provider>,
   document.getElementById('root')
 )
 ```
